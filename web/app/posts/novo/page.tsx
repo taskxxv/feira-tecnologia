@@ -1,0 +1,9 @@
+'use client';
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import Header from "@/components/Header";
+import { useStore } from "@/lib/store";
+export default function NewPost() { const router = useRouter(); const { addPost } = useStore(); const [text, setText] = useState(""); const [topic, setTopic] = useState("Ideias");
+  async function submit(event: FormEvent) { event.preventDefault(); if (text.trim()) { try { await addPost(text.trim(), topic); router.push("/dashboard"); } catch (error) { alert(error instanceof Error ? error.message : "Não foi possível publicar."); } } }
+  return <><Header /><main className="mx-auto max-w-2xl px-5 py-10"><form onSubmit={submit} className="glass-card rounded-lg p-6 sm:p-8"><p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">Estúdio de escrita</p><h1 className="mt-3 font-display text-3xl font-bold">Dê forma ao seu próximo pulso<span className="text-accent">.</span></h1><p className="mt-2 text-muted">Uma ideia pode ser uma pergunta, uma descoberta ou um convite.</p><textarea required maxLength={280} rows={7} value={text} onChange={(event) => setText(event.target.value)} className="field mt-7 resize-none text-lg leading-7" placeholder="Comece por: hoje eu descobri..." /><div className="mt-4 flex flex-wrap items-center justify-between gap-3"><select value={topic} onChange={(event) => setTopic(event.target.value)} className="field w-auto"><option>Ideias</option><option>História</option><option>Matemática</option><option>Ciência</option><option>Leitura</option></select><span className="text-xs text-faint">{text.length}/280</span></div><div className="mt-7 flex justify-end gap-3"><button type="button" onClick={() => router.back()} className="action-button">Cancelar</button><button className="primary-button">Publicar pulso</button></div></form></main></>;
+}

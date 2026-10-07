@@ -1,0 +1,6 @@
+api/.env
+api/vendor/
+web/.env.local
+web/node_modules/
+web/.next/
+*.log

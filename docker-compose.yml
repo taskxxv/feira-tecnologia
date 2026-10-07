@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: plataforma-escola-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: escola
+      POSTGRES_USER: escola
+      POSTGRES_PASSWORD: escola_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - escola_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  escola_postgres_data:

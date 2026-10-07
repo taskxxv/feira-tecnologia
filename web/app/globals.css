@@ -1,0 +1,47 @@
+@import "../styles/tokens.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .glass-card { @apply border border-line bg-surface-raised backdrop-blur-xl; box-shadow: var(--shadow-card); }
+  .action-button { @apply inline-flex items-center justify-center gap-2 rounded-pill border border-line px-3 py-2 text-sm text-muted transition; transition-duration: var(--duration-fast); transition-timing-function: var(--ease-surge); }
+  .action-button:hover { @apply -translate-y-0.5 border-accent text-ink; box-shadow: var(--shadow-glow); }
+  .primary-button { @apply inline-flex items-center justify-center gap-2 rounded-pill bg-accent px-5 py-3 font-semibold text-void transition; transition-duration: var(--duration-base); transition-timing-function: var(--ease-surge); }
+  .primary-button:hover { @apply -translate-y-0.5 bg-accent-strong; box-shadow: var(--shadow-glow); }
+  .field { @apply w-full rounded-md border border-line bg-surface px-4 py-3 text-ink transition placeholder:text-faint; }
+  .field:focus { @apply border-accent; outline: none; box-shadow: 0 0 0 3px var(--color-glow); }
+}
+
+.living-ocean {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  --ocean-x: 0px;
+  --ocean-y: 0px;
+}
+.ocean-aurora, .ocean-wave {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(42px);
+  transform: translate3d(var(--ocean-x), var(--ocean-y), 0);
+  will-change: transform;
+}
+.ocean-aurora-one { width: 34rem; height: 18rem; top: -8rem; left: 5%; background: var(--color-halo); opacity: .42; }
+.ocean-aurora-two { width: 26rem; height: 20rem; right: -8rem; top: 28%; background: var(--color-coral-halo); opacity: .3; }
+.ocean-wave { width: 120vw; height: 18rem; left: -10vw; border-top: 1px solid var(--color-line); opacity: .22; filter: blur(1px); }
+.ocean-wave-1 { top: 32%; }
+.ocean-wave-2 { top: 58%; opacity: .15; }
+.ocean-wave-3 { top: 82%; opacity: .11; }
+.ocean-particle {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background: var(--color-glow);
+  box-shadow: 0 0 14px var(--color-glow);
+}
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { clip-path: circle(0 at var(--theme-x) var(--theme-y)); animation: theme-reveal var(--duration-slow) var(--ease-current) forwards; }
+@keyframes theme-reveal { to { clip-path: circle(150vmax at var(--theme-x) var(--theme-y)); } }
